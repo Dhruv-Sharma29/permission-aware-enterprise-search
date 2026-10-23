@@ -1,0 +1,38 @@
+[
+ {
+  "scenario": "group membership removed",
+  "user": "bob",
+  "answered_before": true,
+  "cached_before_change": true,
+  "doc_cited_before": true,
+  "doc_in_results_after": false,
+  "doc_cited_after": false,
+  "served_from_cache_after": false,
+  "delay_to_first_correct_response_ms": 75.5,
+  "requests_until_effective": 1
+ },
+ {
+  "scenario": "per-document user grant revoked",
+  "user": "ken",
+  "answered_before": true,
+  "cached_before_change": true,
+  "doc_cited_before": true,
+  "doc_in_results_after": false,
+  "doc_cited_after": false,
+  "served_from_cache_after": false,
+  "delay_to_first_correct_response_ms": 58.5,
+  "requests_until_effective": 1
+ },
+ {
+  "scenario": "group grant removed from document",
+  "user": "judy",
+  "answered_before": true,
+  "cached_before_change": true,
+  "doc_cited_before": true,
+  "doc_in_results_after": false,
+  "doc_cited_after": false,
+  "served_from_cache_after": false,
+  "delay_to_first_correct_response_ms": 61.2,
+  "requests_until_effective": 1
+ }
+]

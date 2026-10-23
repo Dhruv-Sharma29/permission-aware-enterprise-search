@@ -1,0 +1,65 @@
+{
+ "model": "BAAI/bge-reranker-base",
+ "revision": "2cfc18c9415c912f9d8155881c133215df768a70",
+ "depth": 20,
+ "keep": 10,
+ "rule": "adopt for a mode only if dev MRR@10 rises by >= 0.01 and dev recall@5 does not fall",
+ "dev": {
+  "vector": {
+   "recall@5": 1,
+   "mrr@10": 0.897,
+   "pairs": 214,
+   "leaks": 0
+  },
+  "vector+rerank": {
+   "recall@5": 1,
+   "mrr@10": 1.0,
+   "pairs": 214,
+   "leaks": 0
+  },
+  "hybrid": {
+   "recall@5": 0.986,
+   "mrr@10": 0.95,
+   "pairs": 214,
+   "leaks": 0
+  },
+  "hybrid+rerank": {
+   "recall@5": 1,
+   "mrr@10": 1.0,
+   "pairs": 214,
+   "leaks": 0
+  }
+ },
+ "test": {
+  "vector": {
+   "recall@5": 1,
+   "mrr@10": 0.91,
+   "pairs": 156,
+   "leaks": 0
+  },
+  "vector+rerank": {
+   "recall@5": 1,
+   "mrr@10": 1.0,
+   "pairs": 156,
+   "leaks": 0
+  },
+  "hybrid": {
+   "recall@5": 0.962,
+   "mrr@10": 0.886,
+   "pairs": 156,
+   "leaks": 0
+  },
+  "hybrid+rerank": {
+   "recall@5": 1,
+   "mrr@10": 1.0,
+   "pairs": 156,
+   "leaks": 0
+  }
+ },
+ "decision": {
+  "vector": "adopt",
+  "hybrid": "adopt"
+ },
+ "cross_encoder_pairs_scored": 8474,
+ "cross_encoder_ms_per_pair": 41.8
+}

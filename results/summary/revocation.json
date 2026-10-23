@@ -8,7 +8,7 @@
   "doc_in_results_after": false,
   "doc_cited_after": false,
   "served_from_cache_after": false,
-  "delay_to_first_correct_response_ms": 75.5,
+  "delay_to_first_correct_response_ms": 42.8,
   "requests_until_effective": 1
  },
  {
@@ -20,7 +20,7 @@
   "doc_in_results_after": false,
   "doc_cited_after": false,
   "served_from_cache_after": false,
-  "delay_to_first_correct_response_ms": 58.5,
+  "delay_to_first_correct_response_ms": 52.2,
   "requests_until_effective": 1
  },
  {
@@ -32,7 +32,7 @@
   "doc_in_results_after": false,
   "doc_cited_after": false,
   "served_from_cache_after": false,
-  "delay_to_first_correct_response_ms": 61.2,
+  "delay_to_first_correct_response_ms": 59.0,
   "requests_until_effective": 1
  }
 ]

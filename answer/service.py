@@ -2,7 +2,9 @@
 
 Generator: `extractive` (default, no model) or `llm` (answer.llm via project 01's endpoint), from
 $ANSWER_GENERATOR or the `generator` argument. Both receive only the user's authorized hits. The
-generator is part of the cache key, so switching it never serves the other one's answer.
+generator is part of the cache key, so switching it never serves the other one's answer. The
+extractive threshold defaults to the one chosen on dev (`results/summary/eval.json`), so the service
+answers with the setting that was evaluated, and it is part of the extractive cache key too.
 
 Cache entries are keyed by (user, query hash) and record the epoch at write time. They are served
 only while the epoch is unchanged (any permission or content change bumps it) AND every cited
@@ -15,22 +17,29 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+from pathlib import Path
 
 from answer import llm
 from answer.extractive import answer as extract
 from search.db import connect
 from search.retrieve import can_read, search
 
+ROOT = Path(__file__).resolve().parents[1]
+THRESHOLD = json.loads((ROOT / "results/summary/eval.json").read_text())["chosen_threshold"]
+
 
 def query_sha(query: str) -> str:
     return hashlib.sha256(" ".join(query.lower().split()).encode()).hexdigest()
 
 
-def ask(user: str, query: str, use_cache: bool = True, threshold: float = 0.5, qvec=None, generator: str | None = None) -> dict:
+def ask(user: str, query: str, use_cache: bool = True, threshold: float | None = None, qvec=None,
+        generator: str | None = None) -> dict:
     generator = generator or os.environ.get("ANSWER_GENERATOR", "extractive")
+    threshold = THRESHOLD if threshold is None else threshold
     if generator not in ("extractive", "llm"):
         raise ValueError(f"unknown answer generator {generator!r}")
-    sha = query_sha(query) if generator == "extractive" else query_sha(f"{generator}:{llm.PROMPT_VERSION}:{query}")
+    sha = query_sha(f"extractive:{threshold}:{query}") if generator == "extractive" else \
+        query_sha(f"{generator}:{llm.PROMPT_VERSION}:{query}")
     with connect() as conn:
         epoch = conn.execute("SELECT value FROM epoch WHERE id = 1").fetchone()[0]
         if use_cache:

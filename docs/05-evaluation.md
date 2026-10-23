@@ -166,8 +166,9 @@ establish the size of the gain.*
 
 ## Results: revocation
 
-Three scenarios, each effective on the first post-change request, 58.5–75.5 ms wall time for
-that request (`results/summary/revocation.json`). What that number means and doesn't mean is in
+Three scenarios, each effective on the first post-change request, 42.8–59.0 ms wall time for
+that request (`results/summary/revocation.json`, re-run 2026-10-23 with the service at the
+evaluated threshold). What that number means and doesn't mean is in
 [03](03-freshness-and-revocation.md) § What was measured.
 
 ## Numbers in the README without a results file

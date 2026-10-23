@@ -86,9 +86,8 @@ and preview status before starting. The local version MUST stay runnable.
    tokens for, say, alice, carol and ken, asks the same questions through the API, and prints each
    user's results and citations side by side. Everything it needs exists (`identity.tokens.issue`,
    `/search`, `/answer`). Only the script is missing.
-2. **Serve at the evaluated threshold.** Make `/answer`'s extractive threshold the dev-chosen 0.7
-   (or read `chosen_threshold`) so the served behaviour matches the published one
-   ([09](09-implementation-notes.md) § 2).
+2. ~~**Serve at the evaluated threshold.**~~ Done 2026-10-23: `/answer` reads `chosen_threshold`
+   (0.7) from `eval.json` ([09](09-implementation-notes.md) § 2).
 3. **Vector-only answer path, decided on dev.** Test showed vector ahead of hybrid; dev didn't
    agree on MRR. Decide on dev, report on test once, as was done for the prompt.
 4. **Reranker attempt**, recorded either way (closes M3).

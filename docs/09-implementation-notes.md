@@ -18,14 +18,19 @@ place where permissions live.
 
 ## Served behaviour vs evaluated behaviour
 
-### 2. `/answer` runs the extractive answerer at threshold 0.5; the evaluation chose 0.7
+### 2. `/answer` served the extractive answerer at 0.5; the evaluation chose 0.7 (fixed)
 
-`answer.service.ask(..., threshold: float = 0.5)` and `search/api.py` calls `ask(user, q.query)`.
-`eval/run.py` chose 0.7 on dev (`eval.json` § `chosen_threshold`), and every published extractive
-number is at 0.7. At 0.5 the test split's appropriate abstention is 0.843 instead of 1.000 and the
-unsupported share 0.399 instead of 0.056 (`eval.json` § `test.answers_by_threshold`). The
-revocation demo and the integration tests also run at 0.5. Authorization is unaffected: leaks are
-0 at every threshold. **Not fixed** (documentation-only change set). [06](06-roadmap.md) item 2.
+`answer.service.ask()` defaulted to `threshold=0.5` and `search/api.py` calls `ask(user, q.query)`,
+while `eval/run.py` chose 0.7 on dev (`eval.json` § `chosen_threshold`) and every published
+extractive number is at 0.7. At 0.5 the test split's appropriate abstention is 0.843 instead of
+1.000 and the unsupported share 0.399 instead of 0.056 (`eval.json` § `test.answers_by_threshold`).
+Authorization was unaffected: leaks are 0 at every threshold.
+
+**Fixed 2026-10-23.** `ask()` now defaults to `chosen_threshold` read from `eval.json` (as
+`eval/run_llm.py` already did), and the threshold is part of the extractive cache key, so an answer
+cached at another threshold is never served. The 15 tests pass, and the revocation demo was re-run
+on the fixed service: all three scenarios still answer and cite before the change and drop the
+document on the first request after it (42.8–59.0 ms, `results/summary/revocation.json`).
 
 ### 3. Hybrid is the default mode though vector measured best
 

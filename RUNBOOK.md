@@ -120,8 +120,8 @@ both MUST be 404.
 
 This is the manual version of the open role-dependent demo ([docs/06](docs/06-roadmap.md) item 1).
 
-`/answer` uses the extractive answerer by default, at threshold 0.5 rather than the evaluated 0.7
-([docs/09](docs/09-implementation-notes.md) § 2). Start the server with `ANSWER_GENERATOR=llm` to
+`/answer` uses the extractive answerer by default, at the evaluated threshold (0.7, read from
+`results/summary/eval.json`). Start the server with `ANSWER_GENERATOR=llm` to
 use the LLM (needs § 6's gateway).
 
 ---

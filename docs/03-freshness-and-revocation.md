@@ -78,9 +78,9 @@ cache hit), commit the change, ask once more, then restore. Results from
 
 | Scenario | User | Answered before | Cache hit before | Cited after | In results after | From cache after | First post-change request |
 |---|---|---|---|---|---|---|---|
-| Group membership removed (`eng_managers`) | bob | yes | yes | no | no | no | 75.5 ms |
-| Per-document user grant revoked ("Contractor onboarding") | ken | yes | yes | no | no | no | 58.5 ms |
-| Group grant removed from document (`hr` and `eng_managers`) | judy | yes | yes | no | no | no | 61.2 ms |
+| Group membership removed (`eng_managers`) | bob | yes | yes | no | no | no | 42.8 ms |
+| Per-document user grant revoked ("Contractor onboarding") | ken | yes | yes | no | no | no | 52.2 ms |
+| Group grant removed from document (`hr` and `eng_managers`) | judy | yes | yes | no | no | no | 59.0 ms |
 
 How to read the last column: it is the wall time of the first `ask()` after the commit (retrieval,
 answering and cache write included). It is **not** a propagation delay waiting for something to

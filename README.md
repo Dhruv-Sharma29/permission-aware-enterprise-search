@@ -27,7 +27,7 @@ the very next request.
 | Appropriate abstention (no permission, or no answer exists) | **100%** of 504 pairs |
 | Answers that were unsupported | 5.6% |
 | Confidential values in answers / unauthorized citations | **0 / 0** |
-| Revocation → first request that reflects it | **next request** (58–76 ms), cached answers invalidated |
+| Revocation → first request that reflects it | **next request** (43–59 ms), cached answers invalidated |
 | OCR: key values recovered from scanned pages | 19 / 20 |
 
 ### LLM-written answers vs the extractive baseline

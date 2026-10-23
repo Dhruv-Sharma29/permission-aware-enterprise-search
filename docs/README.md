@@ -47,8 +47,8 @@ per user in `results/summary/llm_answers_test_v2.json`, but nothing packages it 
 reranker was tried, although the plan asked for the attempt to be recorded either way. The macOS
 code paths have never been run on a Mac (README § macOS). See [06](06-roadmap.md) for what is next
 and [09](09-implementation-notes.md) for the places where the build departs from the plan. One of
-them matters: the live answer service runs the extractive answerer at a different threshold from
-the one the evaluation chose.
+them mattered: until 2026-10-23 the live answer service ran the extractive answerer at 0.5, not
+the 0.7 the evaluation chose; it now serves the evaluated threshold.
 
 Headline results (held-out test split, `results/summary/eval.json` and
 `results/summary/llm_answers_test_v2.json`): vector recall@5 1.000 vs hybrid 0.962 vs keyword

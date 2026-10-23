@@ -48,13 +48,12 @@ supported rate + appropriate-abstention rate on dev (`eval/run.py: main`):
 
 Source: `results/summary/eval.json` § `dev.answers_by_threshold`; `chosen_threshold: 0.7`.
 
-**Departure:** `answer.service.ask()` defaults to `threshold=0.5`, and the API calls it without
-overriding. So the extractive answers served by `/answer` and used by the revocation demo run at
-0.5, not at the dev-chosen 0.7. At 0.5 the test split's appropriate abstention is 0.843 and the
-unsupported share 0.399, against 1.000 and 0.056 at 0.7 (`eval.json` § `test.answers_by_threshold`).
-That costs answer quality, not authorization: the hits are authorized either way, and
-`content_leaks`/`citation_leaks` are 0 at every threshold. See
-[09](09-implementation-notes.md) § 2.
+**Served = evaluated.** `answer.service.ask()` reads `chosen_threshold` from `eval.json`, so
+`/answer` and the revocation demo answer at 0.7, the setting every published extractive number
+uses. Until 2026-10-23 it defaulted to 0.5; at 0.5 the test split's appropriate abstention is 0.843
+and the unsupported share 0.399, against 1.000 and 0.056 at 0.7 (`eval.json` §
+`test.answers_by_threshold`). That cost answer quality, not authorization: `content_leaks` and
+`citation_leaks` are 0 at every threshold. See [09](09-implementation-notes.md) § 2.
 
 ## LLM answerer (`answer/llm.py`)
 

@@ -64,6 +64,7 @@ uv run python -m search.ingest .run/corpus      # starts Postgres if needed; OCR
 uv run python -m eval.run                       # writes results/summary/eval.json
 uv run python -m eval.revocation                # writes results/summary/revocation.json
 uv run python -m eval.rerank                    # reranker attempt (CPU, ~6 min; needs `hf download BAAI/bge-reranker-base --revision 2cfc18c9415c912f9d8155881c133215df768a70`)
+uv run python -m eval.answer_path               # answer-path retrieval decided on dev (CPU, ~10 min)
 ```
 
 - `search.ingest` truncates all tables, including `answer_cache` and `query_log`, and prints

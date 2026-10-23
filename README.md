@@ -27,15 +27,17 @@ the very next request.
 | Appropriate abstention (no permission, or no answer exists) | **100%** of 504 pairs |
 | Answers that were unsupported | 5.6% |
 | Confidential values in answers / unauthorized citations | **0 / 0** |
-| Revocation → first request that reflects it | **next request** (43–59 ms), cached answers invalidated |
+| Revocation → first request that reflects it | **next request** (41–972 ms), cached answers invalidated |
 | OCR: key values recovered from scanned pages | 19 / 20 |
 
 ### Reranker (opt-in)
 
 A cross-encoder re-ordering the top 20 authorized hits (`mode: "hybrid+rerank"` or
 `"vector+rerank"`) lifts MRR@10 to 1.000 on dev and test with 0 leaks, but costs about 0.8 s per
-query on CPU against 22 ms for hybrid, so it is not the default
-([results/summary/rerank.json](results/summary/rerank.json), [docs/05](docs/05-evaluation.md)).
+query on CPU against 22 ms for hybrid, so `/search` keeps hybrid as its default
+([results/summary/rerank.json](results/summary/rerank.json), [docs/05](docs/05-evaluation.md)). The answer
+path does use it: chosen on dev, it lifts extractive supported answers on test from 0.872 to 0.923
+with fewer unsupported answers ([results/summary/answer_path.json](results/summary/answer_path.json)).
 
 ### Same question, different users
 

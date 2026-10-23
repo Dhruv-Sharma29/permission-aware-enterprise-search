@@ -91,10 +91,9 @@ What the numbers say:
   file records it.
 - **The archive penalty had no effect** (identical rows). There is one archived document in the
   corpus, so this was barely tested ([07](07-risks.md) § R1).
-- **Hybrid is still the default** in `/search` and in the answer path (`answer/service.py`). The
-  LLM's two retrieval-limited questions on test (below) are engineering questions, the category
-  where hybrid recall@5 is 0.857 and vector's is 1.000. Switching the answer path to vector is the
-  obvious next experiment, and it would have to be decided on dev ([06](06-roadmap.md)).
+- **`/search` defaults to hybrid; the answer path uses hybrid+rerank** since 2026-10-23, decided
+  on dev (§ Results: answer-path retrieval). The extractive numbers above are for hybrid hits, as
+  are the LLM's.
 - **A reranker helps, at a large cost.** See below.
 
 ## Results: reranker
@@ -117,9 +116,28 @@ The gain is total: the first returned document is a readable gold document for e
 pair, on both splits. Two cautions. The corpus is synthetic and its questions are worded close to
 their source chunks, which a cross-encoder exploits well, so expect less on real documents. And
 the cost is large: 40 ms per (question, chunk) pair on CPU, about 0.8 s per query for 20 candidates,
-against 22 ms for hybrid alone. So the modes are available in `/search` and the default stays
-`hybrid`; making reranking the default, or using it in the answer path, is a latency decision
-([06](06-roadmap.md)).
+against 22 ms for hybrid alone. So the modes are opt-in in `/search`, whose default stays `hybrid`.
+The answer path did adopt it, by its own dev rule (next section).
+
+## Results: answer-path retrieval
+
+`python -m eval.answer_path` → `results/summary/answer_path.json` (2026-10-23). The extractive
+answerer at the served threshold, scored as in `eval/run.py`, on each mode's hits. Rule, fixed
+before running: switch away from hybrid only to the best dev mode, and only if it beats hybrid's dev
+supported rate by at least 0.02 with no higher unsupported share and no lower abstention.
+
+| Answer-path retrieval | Dev supported | Dev unsupported share | Test supported | Test unsupported share | Abstention (all) |
+|---|---|---|---|---|---|
+| hybrid (served until 2026-10-23) | 0.850 | 0.117 | 0.872 | 0.056 | 1.000 |
+| vector | 0.678 | 0.306 | 0.782 | 0.187 | 1.000 |
+| **hybrid+rerank (served now)** | **0.883** | **0.096** | **0.923** | **0.040** | 1.000 |
+| vector+rerank | 0.883 | 0.096 | 0.923 | 0.040 | 1.000 |
+
+`hybrid+rerank` passes (+0.033 on dev, fewer unsupported answers, same abstention) and is what
+`answer/service.py` now uses; the hybrid row reproduces `eval.json`. The table also settles the old
+question of switching answers to plain vector search, which retrieves better: it answers much worse
+(0.782 on test, three times the unsupported share), so ranking metrics alone would have pointed the
+wrong way. Cost: about 0.8 s more per `/answer` on CPU.
 
 ## Results: leak matrix
 
@@ -190,7 +208,7 @@ establish the size of the gain.*
 
 ## Results: revocation
 
-Three scenarios, each effective on the first post-change request, 42.8–59.0 ms wall time for
+Three scenarios, each effective on the first post-change request, 41.0–971.7 ms wall time for
 that request (`results/summary/revocation.json`, re-run 2026-10-23 with the service at the
 evaluated threshold). What that number means and doesn't mean is in
 [03](03-freshness-and-revocation.md) § What was measured.
@@ -200,19 +218,20 @@ evaluated threshold). What that number means and doesn't mean is in
 `python -m eval.role_demo` → `results/summary/role_demo.md` (2026-10-23, the service at its default
 threshold, 0.7). 3 questions x 5 users (alice, carol, judy, lena, ken), picked by the oracle so access differs
 between users: 0 leaks in results, citations or answer text; all 8 pairs where the user can't read
-the source abstained; 4 of the 7 answerable pairs got a supported answer.
+the source abstained; 5 of the 7 answerable pairs got a supported answer (4 of 7 before the answer
+path moved to hybrid+rerank).
 
 | Question | Readers among the 5 | What the readers got | Everyone else |
 |---|---|---|---|
 | Q064 FY2026 engineering budget (role-conflicting) | alice, carol, judy, lena | "roughly $14 million" from the all-hands notes (supported) | ken abstained |
-| Q073 Kestrel Cloud invoice (confidential, scanned) | lena | a wrong sentence from the scan ("Paymentisdueon2026-02-22.") | 4 abstained |
+| Q073 Kestrel Cloud invoice (confidential, scanned) | lena | "KestrelCloudinvoiced$43,416." (supported; with plain hybrid it quoted a wrong sentence) | 4 abstained |
 | Q048 salary band for L3 engineers (confidential) | carol, judy | the L4 row of the table, not L3 | 3 abstained |
 
 Authorization did its job in every pair: each user's results, citations and answer text stay
 inside what that user can read, and users who can't read the source get an abstention, not a guess.
-The unsupported answers are the extractive answerer's: lena's top search result is the precise
-finance document ($14.4 million) but the answerer quotes the less precise all-hands figure; it
-picks the wrong table row; and the scanned invoice's OCR text has lost its spaces. These are answer-quality
+The remaining weaknesses are the extractive answerer's: lena's top search result is the precise
+finance document ($14.4 million) but the answerer quotes the less precise all-hands figure; it picks
+the wrong table row; and OCR text has lost its spaces (the invoice answer is right but unspaced). These are answer-quality
 issues, not leaks.
 
 ## Numbers in the README without a results file

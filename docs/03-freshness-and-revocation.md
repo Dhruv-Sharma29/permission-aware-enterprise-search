@@ -78,9 +78,13 @@ cache hit), commit the change, ask once more, then restore. Results from
 
 | Scenario | User | Answered before | Cache hit before | Cited after | In results after | From cache after | First post-change request |
 |---|---|---|---|---|---|---|---|
-| Group membership removed (`eng_managers`) | bob | yes | yes | no | no | no | 42.8 ms |
-| Per-document user grant revoked ("Contractor onboarding") | ken | yes | yes | no | no | no | 52.2 ms |
-| Group grant removed from document (`hr` and `eng_managers`) | judy | yes | yes | no | no | no | 59.0 ms |
+| Group membership removed (`eng_managers`) | bob | yes | yes | no | no | no | 971.7 ms |
+| Per-document user grant revoked ("Contractor onboarding") | ken | yes | yes | no | no | no | 41.0 ms |
+| Group grant removed from document (`hr` and `eng_managers`) | judy | yes | yes | no | no | no | 970.5 ms |
+
+Re-run 2026-10-23 with the answer path on hybrid+rerank: the request after the change pays for the
+reranker when the user still has candidates to score (about 0.97 s), and not when the revocation
+leaves almost nothing to rank (41 ms). The revocation itself is unchanged: effective on that request.
 
 How to read the last column: it is the wall time of the first `ask()` after the commit (retrieval,
 answering and cache write included). It is **not** a propagation delay waiting for something to

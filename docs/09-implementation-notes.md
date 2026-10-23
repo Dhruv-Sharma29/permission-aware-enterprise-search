@@ -30,14 +30,14 @@ Authorization was unaffected: leaks are 0 at every threshold.
 `eval/run_llm.py` already did), and the threshold is part of the extractive cache key, so an answer
 cached at another threshold is never served. The 15 tests pass, and the revocation demo was re-run
 on the fixed service: all three scenarios still answer and cite before the change and drop the
-document on the first request after it (42.8–59.0 ms, `results/summary/revocation.json`).
+document on the first request after it (41.0–971.7 ms with the answer path's reranker, `results/summary/revocation.json`).
 
-### 3. Hybrid is the default mode though vector measured best
+### 3. Retrieval defaults: hybrid for `/search`, hybrid+rerank for answers
 
-`/search` falls back to `hybrid` for any unknown mode, and the answer service always retrieves with
-`hybrid`. On test, vector recall@5 is 1.000 vs hybrid 0.962. On dev, hybrid had the better MRR
-(0.950 vs 0.897). The README's "Hybrid is kept as an option, not the default claim" refers to the
-claim, not the code default. Changing it should be a dev-split decision ([06](06-roadmap.md) item 3).
+`/search` falls back to `hybrid` for any unknown mode. On test, vector recall@5 is 1.000 vs hybrid
+0.962; on dev, hybrid had the better MRR (0.950 vs 0.897). The answer path used `hybrid` too until
+2026-10-23, when `eval/answer_path.py` chose `hybrid+rerank` on dev (supported 0.850 → 0.883) and
+test confirmed it once (0.872 → 0.923). Plain vector, the obvious candidate, answers much worse.
 
 ## Design departures
 

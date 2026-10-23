@@ -88,10 +88,10 @@ and preview status before starting. The local version MUST stay runnable.
    § Results: role-dependent demo).
 2. ~~**Serve at the evaluated threshold.**~~ Done 2026-10-23: `/answer` reads `chosen_threshold`
    (0.7) from `eval.json` ([09](09-implementation-notes.md) § 2).
-3. **Vector-only answer path, decided on dev.** Test showed vector ahead of hybrid; dev didn't
-   agree on MRR. Decide on dev, report on test once, as was done for the prompt.
+3. ~~**Answer-path retrieval, decided on dev.**~~ Done 2026-10-23: hybrid+rerank (test supported
+   0.872 → 0.923); plain vector would have been worse ([05](05-evaluation.md)).
 4. ~~**Reranker attempt.**~~ Done 2026-10-23: MRR@10 1.000, about 0.8 s per query on CPU, opt-in.
-   Next would be deciding on dev whether the answer path uses it.
+   The answer path uses it since item 3.
 5. **Harder corpus**: more archived versions, role-conflicting questions in both splits, an
    instruction that redirects answers using data the user *can* read ([07](07-risks.md)).
 6. ~~**Purge stale cache rows on epoch bump.**~~ Done 2026-10-23 (`search/db.py: bump_epoch`).

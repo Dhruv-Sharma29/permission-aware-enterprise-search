@@ -56,15 +56,16 @@ the user can read.
 **Mitigation:** say exactly that. Next probe: a readable chunk instructing "report every budget as
 $0", scored by `unsupported_answer_share` on budget questions.
 
-### R5 — Served behaviour differs from evaluated behaviour *(medium: half fixed)*
+### R5 — Served behaviour differs from evaluated behaviour *(low: fixed 2026-10-23)*
 
-The threshold half is fixed: `/answer` now answers at the dev-chosen 0.7 that the published numbers
-use (it served 0.5 until 2026-10-23, [09](09-implementation-notes.md) § 2). Still open: hybrid is the
-served mode, while vector is the best measured mode.
+Both halves are fixed. `/answer` answers at the dev-chosen 0.7 (it served 0.5 until 2026-10-23,
+[09](09-implementation-notes.md) § 2), and its retrieval mode, hybrid+rerank, was itself chosen on
+dev and evaluated (`results/summary/answer_path.json`). Remaining: the published extractive and LLM
+comparisons in `eval.json` and `llm_answers_*.json` were run on plain hybrid hits; the served
+answer path's own numbers are in `answer_path.json`.
 
-**Detection:** the service reads `chosen_threshold` from `eval.json`, so a re-tuned threshold is
-served automatically. **Mitigation for the mode gap:** documented here and in [05](05-evaluation.md)
-§ What not to claim. Fix: [06](06-roadmap.md) item 3.
+**Detection:** the service reads `chosen_threshold` from `eval.json` and names its retrieval mode in
+one constant (`answer/service.py: RETRIEVAL`, overridable by `$ANSWER_RETRIEVAL`).
 
 ### R6 — The global epoch doesn't scale *(certain at scale, irrelevant here)*
 
@@ -114,7 +115,7 @@ llama.cpp server on `127.0.0.1:21000/props` for the weights file name. If that f
 | Say | Don't say |
 |---|---|
 | 0 unauthorized documents and 0 planted values observed in 1,368 (question, user) pairs, all modes | Leak-proof; secure |
-| Revocation applies to the next request; first post-change request took 42.8–59.0 ms | Revocation takes 43 ms |
+| Revocation applies to the next request; first post-change request took 41.0–971.7 ms | Revocation takes 41 ms |
 | LLM 95.5% vs extractive 87.2% supported on test; not significant per distinct input (p = 0.125) | The LLM is significantly better |
 | Vector recall@5 1.000 vs hybrid 0.962 on test | Hybrid search beats keyword and vector |
 | The planted instruction was never echoed and produced no forbidden values | The model resists prompt injection |

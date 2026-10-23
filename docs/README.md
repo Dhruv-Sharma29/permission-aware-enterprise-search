@@ -44,7 +44,7 @@ answer badly, but it cannot widen access.
 definition-of-done item met.** The last one, the role-dependent demo, is `python -m eval.role_demo`
 (`results/summary/role_demo.md`): 3 questions x 5 users (alice, carol, judy, lena, ken), picked by the oracle so access differs
 between users: 0 leaks in results, citations or answer text; all 8 pairs where the user can't read
-the source abstained; 4 of the 7 answerable pairs got a supported answer. A
+the source abstained; 5 of the 7 answerable pairs got a supported answer. A
 cross-encoder reranker was tried as the plan asked: MRR@10 1.000 on dev and test, at about 0.8 s
 per query on CPU, so it is an opt-in mode rather than the default. The macOS
 code paths have never been run on a Mac (README § macOS). See [06](06-roadmap.md) for what is next

@@ -5,6 +5,8 @@ $ANSWER_GENERATOR or the `generator` argument. Both receive only the user's auth
 generator is part of the cache key, so switching it never serves the other one's answer. The
 extractive threshold defaults to the one chosen on dev (`results/summary/eval.json`), so the service
 answers with the setting that was evaluated, and it is part of the extractive cache key too.
+Retrieval for answers is `hybrid+rerank`, chosen on dev by eval/answer_path.py
+(results/summary/answer_path.json); $ANSWER_RETRIEVAL overrides it, and it is part of the cache key.
 
 Cache entries are keyed by (user, query hash) and record the epoch at write time. They are served
 only while the epoch is unchanged (any permission or content change bumps it) AND every cited
@@ -26,6 +28,7 @@ from search.retrieve import can_read, search
 
 ROOT = Path(__file__).resolve().parents[1]
 THRESHOLD = json.loads((ROOT / "results/summary/eval.json").read_text())["chosen_threshold"]
+RETRIEVAL = os.environ.get("ANSWER_RETRIEVAL", "hybrid+rerank")
 
 
 def query_sha(query: str) -> str:
@@ -38,8 +41,8 @@ def ask(user: str, query: str, use_cache: bool = True, threshold: float | None =
     threshold = THRESHOLD if threshold is None else threshold
     if generator not in ("extractive", "llm"):
         raise ValueError(f"unknown answer generator {generator!r}")
-    sha = query_sha(f"extractive:{threshold}:{query}") if generator == "extractive" else \
-        query_sha(f"{generator}:{llm.PROMPT_VERSION}:{query}")
+    sha = query_sha(f"extractive:{threshold}:{RETRIEVAL}:{query}") if generator == "extractive" else \
+        query_sha(f"{generator}:{llm.PROMPT_VERSION}:{RETRIEVAL}:{query}")
     with connect() as conn:
         epoch = conn.execute("SELECT value FROM epoch WHERE id = 1").fetchone()[0]
         if use_cache:
@@ -47,7 +50,7 @@ def ask(user: str, query: str, use_cache: bool = True, threshold: float | None =
                                (user, sha)).fetchone()
             if row and row[0] == epoch and all(can_read(user, d) for d in row[2]):
                 return {**row[1], "cached": True}
-    hits = search(user, query, "hybrid", k=10, qvec=qvec)
+    hits = search(user, query, RETRIEVAL, k=10, qvec=qvec)
     result = extract(query, hits, threshold=threshold) if generator == "extractive" else llm.answer(query, hits)
     result["generator"] = generator
     if use_cache and not result.get("model_error"):   # a failed model call is not an answer to keep

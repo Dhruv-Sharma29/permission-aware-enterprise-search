@@ -1,0 +1,317 @@
+{
+ "summary": {
+  "users": [
+   "alice",
+   "carol",
+   "judy",
+   "lena",
+   "ken"
+  ],
+  "questions": 3,
+  "pairs": 15,
+  "leaks": 0,
+  "answerable_pairs": 7,
+  "supported_when_answerable": 4,
+  "abstained_when_not_answerable": 8,
+  "answered_when_not_answerable": 0,
+  "threshold": "service default (results/summary/eval.json chosen_threshold)"
+ },
+ "rows": [
+  {
+   "qid": "Q064",
+   "category": "role-conflicting",
+   "question": "What is the FY2026 engineering budget?",
+   "user": "alice",
+   "can_read_gold": true,
+   "top_results": [
+    "All-hands notes: planning",
+    "Engineering weekly update 25",
+    "Engineering weekly update 2"
+   ],
+   "abstained": false,
+   "answer": "Leadership shared that the FY2026 engineering budget is roughly $14 million.",
+   "cited": [
+    "All-hands notes: planning"
+   ],
+   "supported": true,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q064",
+   "category": "role-conflicting",
+   "question": "What is the FY2026 engineering budget?",
+   "user": "carol",
+   "can_read_gold": true,
+   "top_results": [
+    "All-hands notes: planning",
+    "Engineering weekly update 2",
+    "Engineering weekly update 27"
+   ],
+   "abstained": false,
+   "answer": "Leadership shared that the FY2026 engineering budget is roughly $14 million.",
+   "cited": [
+    "All-hands notes: planning"
+   ],
+   "supported": true,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q064",
+   "category": "role-conflicting",
+   "question": "What is the FY2026 engineering budget?",
+   "user": "judy",
+   "can_read_gold": true,
+   "top_results": [
+    "All-hands notes: planning",
+    "Engineering weekly update 2",
+    "Engineering weekly update 27"
+   ],
+   "abstained": false,
+   "answer": "Leadership shared that the FY2026 engineering budget is roughly $14 million.",
+   "cited": [
+    "All-hands notes: planning"
+   ],
+   "supported": true,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q064",
+   "category": "role-conflicting",
+   "question": "What is the FY2026 engineering budget?",
+   "user": "lena",
+   "can_read_gold": true,
+   "top_results": [
+    "FY2026 department budgets (finance)",
+    "All-hands notes: planning",
+    "FY2026 department budgets (finance)"
+   ],
+   "abstained": false,
+   "answer": "Leadership shared that the FY2026 engineering budget is roughly $14 million.",
+   "cited": [
+    "All-hands notes: planning"
+   ],
+   "supported": true,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q064",
+   "category": "role-conflicting",
+   "question": "What is the FY2026 engineering budget?",
+   "user": "ken",
+   "can_read_gold": false,
+   "top_results": [
+    "Contractor onboarding",
+    "Contractor onboarding"
+   ],
+   "abstained": true,
+   "answer": null,
+   "cited": [],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q073",
+   "category": "confidential-scanned",
+   "question": "How much did Kestrel Cloud invoice?",
+   "user": "alice",
+   "can_read_gold": false,
+   "top_results": [
+    "Design: ember-billing",
+    "Design: ember-billing",
+    "Design: ember-billing"
+   ],
+   "abstained": true,
+   "answer": null,
+   "cited": [],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q073",
+   "category": "confidential-scanned",
+   "question": "How much did Kestrel Cloud invoice?",
+   "user": "carol",
+   "can_read_gold": false,
+   "top_results": [
+    "Sales weekly update 36",
+    "Remote Work Policy",
+    "Personnel record: Tariq Brennan"
+   ],
+   "abstained": true,
+   "answer": null,
+   "cited": [],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q073",
+   "category": "confidential-scanned",
+   "question": "How much did Kestrel Cloud invoice?",
+   "user": "judy",
+   "can_read_gold": false,
+   "top_results": [
+    "Sales weekly update 36",
+    "Remote Work Policy",
+    "Personnel record: Tariq Brennan"
+   ],
+   "abstained": true,
+   "answer": null,
+   "cited": [],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q073",
+   "category": "confidential-scanned",
+   "question": "How much did Kestrel Cloud invoice?",
+   "user": "lena",
+   "can_read_gold": true,
+   "top_results": [
+    "Invoice from Kestrel Cloud",
+    "Invoice from Kestrel Cloud",
+    "Invoice from Kestrel Cloud"
+   ],
+   "abstained": false,
+   "answer": "Paymentisdueon2026-02-22.",
+   "cited": [
+    "Invoice from Kestrel Cloud"
+   ],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q073",
+   "category": "confidential-scanned",
+   "question": "How much did Kestrel Cloud invoice?",
+   "user": "ken",
+   "can_read_gold": false,
+   "top_results": [
+    "Contractor onboarding",
+    "Contractor onboarding"
+   ],
+   "abstained": true,
+   "answer": null,
+   "cited": [],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q048",
+   "category": "confidential",
+   "question": "What is the salary band for L3 engineers?",
+   "user": "alice",
+   "can_read_gold": false,
+   "top_results": [
+    "Frequently asked questions",
+    "Engineering weekly update 77",
+    "Engineering weekly update 2"
+   ],
+   "abstained": true,
+   "answer": null,
+   "cited": [],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q048",
+   "category": "confidential",
+   "question": "What is the salary band for L3 engineers?",
+   "user": "carol",
+   "can_read_gold": true,
+   "top_results": [
+    "Engineering salary bands",
+    "Engineering salary bands",
+    "Frequently asked questions"
+   ],
+   "abstained": false,
+   "answer": "| L4 | $140k-$234k |",
+   "cited": [
+    "Engineering salary bands"
+   ],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q048",
+   "category": "confidential",
+   "question": "What is the salary band for L3 engineers?",
+   "user": "judy",
+   "can_read_gold": true,
+   "top_results": [
+    "Engineering salary bands",
+    "Engineering salary bands",
+    "Frequently asked questions"
+   ],
+   "abstained": false,
+   "answer": "| L4 | $140k-$234k |",
+   "cited": [
+    "Engineering salary bands"
+   ],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q048",
+   "category": "confidential",
+   "question": "What is the salary band for L3 engineers?",
+   "user": "lena",
+   "can_read_gold": false,
+   "top_results": [
+    "Frequently asked questions",
+    "Engineering weekly update 77",
+    "Engineering weekly update 2"
+   ],
+   "abstained": true,
+   "answer": null,
+   "cited": [],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  },
+  {
+   "qid": "Q048",
+   "category": "confidential",
+   "question": "What is the salary band for L3 engineers?",
+   "user": "ken",
+   "can_read_gold": false,
+   "top_results": [
+    "Contractor onboarding",
+    "Contractor onboarding"
+   ],
+   "abstained": true,
+   "answer": null,
+   "cited": [],
+   "supported": false,
+   "result_leaks": 0,
+   "citation_leaks": 0,
+   "content_leaks": 0
+  }
+ ]
+}

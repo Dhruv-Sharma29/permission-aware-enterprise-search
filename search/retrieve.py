@@ -5,6 +5,7 @@ joins chunks to readable_docs(user) and to the document's current version.
   vector   pgvector cosine distance over BGE embeddings (exact scan of the authorized set:
            no approximate index whose filtering could silently drop results)
   hybrid   reciprocal-rank fusion of both (k = 60); archived documents downweighted
+  vector+rerank, hybrid+rerank   the base mode's top 20, re-ordered by a cross-encoder (search/rerank.py)
 """
 
 from __future__ import annotations
@@ -73,6 +74,9 @@ def hybrid(user: str, query: str, k: int = 10, archived_weight: float = ARCHIVED
 
 
 def search(user: str, query: str, mode: str = "hybrid", k: int = 10, qvec=None) -> list[Hit]:
+    if mode in ("vector+rerank", "hybrid+rerank"):
+        from search.rerank import DEPTH, rerank   # loads the cross-encoder only when asked for
+        return rerank(query, search(user, query, mode.removesuffix("+rerank"), max(k, DEPTH), qvec=qvec))[:k]
     if mode == "keyword":
         return keyword(user, query, k)
     if mode == "vector":

@@ -50,7 +50,7 @@ def log(user: str, endpoint: str, query: str, doc_ids: list[str], t0: float) -> 
 def search_endpoint(q: Query, authorization: str | None = Header(default=None)) -> dict:
     t0 = time.perf_counter()
     user = caller(authorization)
-    hits = search(user, q.query, q.mode if q.mode in ("keyword", "vector", "hybrid") else "hybrid", min(q.k, 20))
+    hits = search(user, q.query, q.mode if q.mode in ("keyword", "vector", "hybrid", "vector+rerank", "hybrid+rerank") else "hybrid", min(q.k, 20))
     log(user, "search", q.query, [h.doc_id for h in hits], t0)
     return {"results": [{"doc_id": h.doc_id, "chunk_id": h.chunk_id, "title": h.title, "snippet": h.text[:300],
                          "score": round(h.score, 5)} for h in hits]}

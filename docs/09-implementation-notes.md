@@ -124,10 +124,11 @@ These are recorded, not fixed in code. The PLAN.md link was updated to point at
 PLAN.md M3: "Reranker only if it improves held-out results — record the attempt either way." No
 attempt exists. Deferred to [06](06-roadmap.md) item 4.
 
-### 14. Role-dependent demo
+### 14. Role-dependent demo (closed 2026-10-23)
 
-The only open definition-of-done item. [06](06-roadmap.md) item 1 describes the smallest version
-that closes it.
+The last open definition-of-done item. `eval/role_demo.py` calls `/search` and `/answer` with real
+bearer tokens for 5 users. The oracle picks the questions (one per distinct access pattern, so 3
+qualified), not the system, and checks every result. Output: `results/summary/role_demo.{json,md}`.
 
 ### 15. Purging stale cache rows
 

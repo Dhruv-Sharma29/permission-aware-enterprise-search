@@ -118,7 +118,12 @@ That is what `test_two_users_same_question_get_only_their_evidence` asserts. The
 `GET /citations/{chunk_id}` and `GET /docs/{doc_id}/preview` for that document with alice's token:
 both MUST be 404.
 
-This is the manual version of the open role-dependent demo ([docs/06](docs/06-roadmap.md) item 1).
+This is the manual version of the role-dependent demo. The packaged one runs the same calls for
+5 users and 3 oracle-picked questions and writes a side-by-side table (needs the ingested corpus):
+
+```bash
+uv run python -m eval.role_demo     # writes results/summary/role_demo.{json,md}; exits 1 on any leak
+```
 
 `/answer` uses the extractive answerer by default, at the evaluated threshold (0.7, read from
 `results/summary/eval.json`). Start the server with `ANSWER_GENERATOR=llm` to

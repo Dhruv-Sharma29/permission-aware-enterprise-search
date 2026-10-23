@@ -92,7 +92,7 @@ test.
 | S9 | A planted instruction grants no access | `test_injected_document_grants_no_access`; `eval/llm_injection.py`: 0 echoes, 0 forbidden values in 62 calls (`results/summary/llm_injection.json`) |
 | S10 | Keyword vs vector vs hybrid compared on held-out questions | `eval.json` § `test.retrieval` ([05](05-evaluation.md)) |
 | S11 | Answers cite or abstain; abstention is scored separately from support | `supported_answer_rate`, `appropriate_abstention_rate`, `unsupported_answer_share` in `eval.json` and `llm_answers_*.json` |
-| S12 | A role-dependent demo a reader can run | **Open.** Tested and recorded, not packaged ([06](06-roadmap.md)) |
+| S12 | A role-dependent demo a reader can run | `python -m eval.role_demo` → `results/summary/role_demo.md`: 0 leaks over 15 (question, user) pairs | Met |
 
 S1–S11 hold on the recorded runs. S12 is the open definition-of-done item in PLAN.md.
 

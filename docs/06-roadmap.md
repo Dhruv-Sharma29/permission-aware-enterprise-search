@@ -74,7 +74,7 @@ and preview status before starting. The local version MUST stay runnable.
 
 | Item | State |
 |---|---|
-| Role-dependent demo | **Open.** Behaviour is tested and recorded per user (`llm_answers_test_v2.json` § `disagreements` lists users per outcome), but there is no standalone demo |
+| Role-dependent demo | Done 2026-10-23: `python -m eval.role_demo` → `results/summary/role_demo.md` ([05](05-evaluation.md) § Results: role-dependent demo) |
 | Revocation demo | Done (`results/summary/revocation.json`) |
 | Retrieval baseline comparison | Done ([05](05-evaluation.md)) |
 | Authorization test results | Done (8 integration tests; exhaustive SQL-vs-oracle agreement) |
@@ -82,10 +82,10 @@ and preview status before starting. The local version MUST stay runnable.
 
 ## Next, in order
 
-1. **Role-dependent demo.** The smallest version that closes the item: one script that issues
-   tokens for, say, alice, carol and ken, asks the same questions through the API, and prints each
-   user's results and citations side by side. Everything it needs exists (`identity.tokens.issue`,
-   `/search`, `/answer`). Only the script is missing.
+1. ~~**Role-dependent demo.**~~ Done 2026-10-23 (`eval/role_demo.py`). It also exposed three
+   extractive-answer weaknesses worth fixing next: a less precise readable source preferred over the
+   exact one, a wrong row taken from a table, and OCR text without spaces ([05](05-evaluation.md)
+   § Results: role-dependent demo).
 2. ~~**Serve at the evaluated threshold.**~~ Done 2026-10-23: `/answer` reads `chosen_threshold`
    (0.7) from `eval.json` ([09](09-implementation-notes.md) § 2).
 3. **Vector-only answer path, decided on dev.** Test showed vector ahead of hybrid; dev didn't

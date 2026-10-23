@@ -30,6 +30,12 @@ the very next request.
 | Revocation → first request that reflects it | **next request** (43–59 ms), cached answers invalidated |
 | OCR: key values recovered from scanned pages | 19 / 20 |
 
+### Same question, different users
+
+`python -m eval.role_demo` asks 3 oracle-picked questions as 5 users through the API: 0 leaks in
+results, citations or answer text, and every user who can't read the source gets an abstention
+(8/8). Side-by-side table: [results/summary/role_demo.md](results/summary/role_demo.md).
+
 ### LLM-written answers vs the extractive baseline
 
 Same 660 test pairs, same top-5 authorized passages and the same scorer for both. The model is

@@ -171,6 +171,26 @@ that request (`results/summary/revocation.json`, re-run 2026-10-23 with the serv
 evaluated threshold). What that number means and doesn't mean is in
 [03](03-freshness-and-revocation.md) § What was measured.
 
+## Results: role-dependent demo
+
+`python -m eval.role_demo` → `results/summary/role_demo.md` (2026-10-23, the service at its default
+threshold, 0.7). 3 questions x 5 users (alice, carol, judy, lena, ken), picked by the oracle so access differs
+between users: 0 leaks in results, citations or answer text; all 8 pairs where the user can't read
+the source abstained; 4 of the 7 answerable pairs got a supported answer.
+
+| Question | Readers among the 5 | What the readers got | Everyone else |
+|---|---|---|---|
+| Q064 FY2026 engineering budget (role-conflicting) | alice, carol, judy, lena | "roughly $14 million" from the all-hands notes (supported) | ken abstained |
+| Q073 Kestrel Cloud invoice (confidential, scanned) | lena | a wrong sentence from the scan ("Paymentisdueon2026-02-22.") | 4 abstained |
+| Q048 salary band for L3 engineers (confidential) | carol, judy | the L4 row of the table, not L3 | 3 abstained |
+
+Authorization did its job in every pair: each user's results, citations and answer text stay
+inside what that user can read, and users who can't read the source get an abstention, not a guess.
+The unsupported answers are the extractive answerer's: lena's top search result is the precise
+finance document ($14.4 million) but the answerer quotes the less precise all-hands figure; it
+picks the wrong table row; and the scanned invoice's OCR text has lost its spaces. These are answer-quality
+issues, not leaks.
+
 ## Numbers in the README without a results file
 
 | Claim (README) | Status |

@@ -77,7 +77,7 @@ Check unauthorized exposure on each surface: retrieval results · answer text ·
 - Generated corpus may be too easy; include near-duplicate docs across roles and outdated versions.
 
 ## Definition of done
-- [ ] Role-dependent demo: behaviour is tested ("same question, different users") and visible per user in `results/summary/llm_answers_test_v2.json`, but there is no standalone demo yet
+- [x] Role-dependent demo: `python -m eval.role_demo` → `results/summary/role_demo.md` (2026-10-23). 3 questions × 5 users through the API, 0 leaks, all 8 non-readable pairs abstained
 - [x] Revocation demo (`results/summary/revocation.json`: 3 scenarios, effective on the next request)
 - [x] Retrieval baseline comparison (README: keyword vs vector vs hybrid)
 - [x] Authz test results (8 integration tests pass; exhaustive SQL-vs-oracle agreement)

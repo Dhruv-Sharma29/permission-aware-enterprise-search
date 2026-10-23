@@ -50,7 +50,7 @@ Brief: [SPEC.md](SPEC.md). Core claim to prove: **no passage, answer, citation, 
 ### M3 — Hybrid retrieval (1 week)
 - [x] Embedding model with arm64 support; batch during ingestion.
 - [x] Compare keyword vs vector vs hybrid on held-out questions: recall@k, MRR.
-- [ ] Reranker only if it improves held-out results — record the attempt either way. (Not attempted, so nothing is recorded: docs/06.)
+- [x] Reranker only if it improves held-out results — record the attempt either way. (`eval/rerank.py` → `results/summary/rerank.json`: improves both modes; opt-in because of CPU latency.)
 
 ### M4 — Grounded answers (1 week)
 - [x] Prompt with authorized passages only; require citations per claim (`answer/llm.py`; schema-constrained reply, passage-number citations).

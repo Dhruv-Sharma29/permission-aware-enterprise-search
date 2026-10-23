@@ -126,7 +126,7 @@ Needs the Postgres daemon and the embedding model. In order, from [`RUNBOOK.md`]
   [docs/03](docs/03-freshness-and-revocation.md).
 - Every published number and its source file: [docs/05](docs/05-evaluation.md).
 - The role-dependent demo's output, without running anything: `results/summary/role_demo.md`.
-- What isn't done (reranker, M6): [docs/06](docs/06-roadmap.md).
+- What isn't done (M6, the optional Azure variant): [docs/06](docs/06-roadmap.md).
 - Where the served system differs from the evaluated one: [docs/09](docs/09-implementation-notes.md) § 2–3.
 
 ---

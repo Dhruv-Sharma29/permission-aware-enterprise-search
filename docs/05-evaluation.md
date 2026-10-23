@@ -95,7 +95,31 @@ What the numbers say:
   LLM's two retrieval-limited questions on test (below) are engineering questions, the category
   where hybrid recall@5 is 0.857 and vector's is 1.000. Switching the answer path to vector is the
   obvious next experiment, and it would have to be decided on dev ([06](06-roadmap.md)).
-- **No reranker was tried.** PLAN.md M3 asked for the attempt to be recorded either way.
+- **A reranker helps, at a large cost.** See below.
+
+## Results: reranker
+
+`python -m eval.rerank` → `results/summary/rerank.json` (2026-10-23). A cross-encoder
+(`BAAI/bge-reranker-base`, MIT, revision `2cfc18c`) re-orders the top 20 authorized hits of vector
+or hybrid and keeps 10 (`search/rerank.py`, modes `vector+rerank` and `hybrid+rerank`). The rule was
+fixed before running: adopt for a mode only if dev MRR@10 rises by at least 0.01 without recall@5
+falling; test reported once.
+
+| Split | Mode | MRR@10 | Recall@5 | MRR@10 +rerank | Recall@5 +rerank | Leaks |
+|---|---|---|---|---|---|---|
+| dev (214 answerable pairs) | vector | 0.897 | 1.000 | 1.000 | 1.000 | 0 |
+| dev | hybrid | 0.950 | 0.986 | 1.000 | 1.000 | 0 |
+| test (156) | vector | 0.910 | 1.000 | 1.000 | 1.000 | 0 |
+| test | hybrid | 0.886 | 0.962 | 1.000 | 1.000 | 0 |
+
+Both modes pass the rule (`decision: adopt`), and the baseline rows reproduce `eval.json` exactly.
+The gain is total: the first returned document is a readable gold document for every answerable
+pair, on both splits. Two cautions. The corpus is synthetic and its questions are worded close to
+their source chunks, which a cross-encoder exploits well, so expect less on real documents. And
+the cost is large: 40 ms per (question, chunk) pair on CPU, about 0.8 s per query for 20 candidates,
+against 22 ms for hybrid alone. So the modes are available in `/search` and the default stays
+`hybrid`; making reranking the default, or using it in the answer path, is a latency decision
+([06](06-roadmap.md)).
 
 ## Results: leak matrix
 

@@ -63,6 +63,7 @@ uv run python -m corpus.generate --out .run/corpus
 uv run python -m search.ingest .run/corpus      # starts Postgres if needed; OCR, chunk, embed, load
 uv run python -m eval.run                       # writes results/summary/eval.json
 uv run python -m eval.revocation                # writes results/summary/revocation.json
+uv run python -m eval.rerank                    # reranker attempt (CPU, ~6 min; needs `hf download BAAI/bge-reranker-base --revision 2cfc18c9415c912f9d8155881c133215df768a70`)
 ```
 
 - `search.ingest` truncates all tables, including `answer_cache` and `query_log`, and prints

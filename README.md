@@ -30,6 +30,13 @@ the very next request.
 | Revocation → first request that reflects it | **next request** (43–59 ms), cached answers invalidated |
 | OCR: key values recovered from scanned pages | 19 / 20 |
 
+### Reranker (opt-in)
+
+A cross-encoder re-ordering the top 20 authorized hits (`mode: "hybrid+rerank"` or
+`"vector+rerank"`) lifts MRR@10 to 1.000 on dev and test with 0 leaks, but costs about 0.8 s per
+query on CPU against 22 ms for hybrid, so it is not the default
+([results/summary/rerank.json](results/summary/rerank.json), [docs/05](docs/05-evaluation.md)).
+
 ### Same question, different users
 
 `python -m eval.role_demo` asks 3 oracle-picked questions as 5 users through the API: 0 leaks in

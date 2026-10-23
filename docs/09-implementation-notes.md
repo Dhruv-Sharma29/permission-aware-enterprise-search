@@ -110,7 +110,7 @@ torch/scipy failed with `numpy.core.multiarray failed to import`. `pyproject.tom
 | `search/ingest.py` docstring | Write path "used by the admin CLI and the tests" | There is no admin CLI. The write path is Python functions, called by tests and `eval/revocation.py` |
 | README architecture diagram | "Admin: grant, revoke, update, delete" | Same: functions, no endpoint or CLI |
 | README results table | Search p50/p95 9/11, 11/14, 19/24 ms | `eval.json`: 9.9/16.8, 11.8/18.3, 21.7/34.4 ms |
-| PLAN.md M1–M3, M5 checklists | Were unticked; ticked 2026-10-23 to match § Progress | Only the reranker item stays open (never attempted); evidence in [06](06-roadmap.md) |
+| PLAN.md M1–M3, M5 checklists | Were unticked; ticked 2026-10-23 to match § Progress | All ticked, including the reranker attempt; evidence in [06](06-roadmap.md) |
 | PLAN.md M5 | Guarantee "in `docs/revocation.md`" | Written as [03](03-freshness-and-revocation.md) |
 | README § macOS | macOS paths "tested on Linux" | `tests/test_security.py` skips unless the **Linux** `.tools/pg/...` binary exists, so on a Homebrew-only Mac the 8 integration tests would skip rather than run |
 
@@ -119,10 +119,12 @@ These are recorded, not fixed in code. The PLAN.md link was updated to point at
 
 ## Deferred, not dropped
 
-### 13. Reranker
+### 13. Reranker (attempted and recorded 2026-10-23)
 
-PLAN.md M3: "Reranker only if it improves held-out results — record the attempt either way." No
-attempt exists. Deferred to [06](06-roadmap.md) item 4.
+PLAN.md M3: "Reranker only if it improves held-out results — record the attempt either way."
+`eval/rerank.py` ran the attempt with a pre-declared dev rule; it improves both modes to MRR@10
+1.000 on dev and test ([05](05-evaluation.md) § Results: reranker). It is an opt-in search mode,
+not the default, because it adds about 0.8 s per query on CPU.
 
 ### 14. Role-dependent demo (closed 2026-10-23)
 

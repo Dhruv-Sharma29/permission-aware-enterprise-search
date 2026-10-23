@@ -43,7 +43,7 @@ Exit: cross-role access tests pass.
 |---|---|
 | Embedding model on arm64, batched at ingestion | BGE-base-en-v1.5 on CPU, batch 32 (`search/embed.py`; `env/ENVIRONMENT.md`) |
 | Keyword vs vector vs hybrid on held-out questions | `eval.json` § `test.retrieval` ([05](05-evaluation.md)) |
-| Reranker attempt recorded either way | **Not attempted, not recorded.** Open |
+| Reranker attempt recorded either way | Done 2026-10-23 (`results/summary/rerank.json`): adopted as opt-in modes |
 
 ## M4 — Grounded answers · **Done**
 
@@ -90,7 +90,8 @@ and preview status before starting. The local version MUST stay runnable.
    (0.7) from `eval.json` ([09](09-implementation-notes.md) § 2).
 3. **Vector-only answer path, decided on dev.** Test showed vector ahead of hybrid; dev didn't
    agree on MRR. Decide on dev, report on test once, as was done for the prompt.
-4. **Reranker attempt**, recorded either way (closes M3).
+4. ~~**Reranker attempt.**~~ Done 2026-10-23: MRR@10 1.000, about 0.8 s per query on CPU, opt-in.
+   Next would be deciding on dev whether the answer path uses it.
 5. **Harder corpus**: more archived versions, role-conflicting questions in both splits, an
    instruction that redirects answers using data the user *can* read ([07](07-risks.md)).
 6. **Purge stale cache rows on epoch bump** ([03](03-freshness-and-revocation.md) § gaps).

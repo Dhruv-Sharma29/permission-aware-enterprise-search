@@ -130,7 +130,12 @@ def connect() -> psycopg.Connection:
 
 
 def bump_epoch(conn) -> int:
-    return conn.execute("UPDATE epoch SET value = value + 1 WHERE id = 1 RETURNING value").fetchone()[0]
+    """Advance the epoch and purge cached answers from earlier epochs in the same transaction. They
+    could never be served again (the cache is read only at the current epoch), but left in place they
+    kept answer text at rest for users who may have lost access."""
+    epoch = conn.execute("UPDATE epoch SET value = value + 1 WHERE id = 1 RETURNING value").fetchone()[0]
+    conn.execute("DELETE FROM answer_cache WHERE epoch < %s", (epoch,))
+    return epoch
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import sys
@@ -103,6 +104,10 @@ def test_revocation_after_a_cached_answer(api, oracle):
     assert not first["abstained"] and again["cached"]
     set_membership("bob", "eng_managers", False)
     try:
+        from search.db import connect
+        with connect() as conn:   # the cached copy is purged with the change, not just left unservable
+            rows = conn.execute("SELECT response FROM answer_cache WHERE user_id = 'bob'").fetchall()
+        assert not any(first["answer"] in json.dumps(r[0]) for r in rows)
         after = api.post("/answer", json=q, headers=auth("bob")).json()
         assert after["abstained"] and not after["cached"]
         assert not any(v in (after["answer"] or "") for v in oracle.forbidden_values("bob") | {first["answer"]})

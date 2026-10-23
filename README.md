@@ -99,7 +99,7 @@ flowchart LR
     ADM[Admin: grant, revoke, update, delete] -->|bump epoch| PG
 ```
 
-Details: [docs/architecture.md](docs/architecture.md).
+Details: [docs/01-architecture.md](docs/01-architecture.md).
 
 ## Security model
 
@@ -207,10 +207,19 @@ tests for the LLM answer contract and citation checks (no model needed):
 - **Archived-version penalty.** Implemented and measured, with no effect here: the current policy
   already outranked the archived one.
 
-## Planning documents
+## Docs
 
-[SPEC.md](SPEC.md) (project brief) · [PLAN.md](PLAN.md) (milestones and progress) ·
-[env/ENVIRONMENT.md](env/ENVIRONMENT.md)
+- [start.md](start.md): install, see it work without a database or model, read the results
+- [RUNBOOK.md](RUNBOOK.md): the steps that need Postgres, a model download or the LLM gateway
+- [docs/](docs/README.md): design record. [Charter](docs/00-charter.md) ·
+  [Architecture](docs/01-architecture.md) · [Authorization](docs/02-authorization.md) ·
+  [Freshness and revocation](docs/03-freshness-and-revocation.md) ·
+  [Grounded answers](docs/04-grounded-answers.md) · [Evaluation](docs/05-evaluation.md) ·
+  [Roadmap](docs/06-roadmap.md) · [Risks](docs/07-risks.md) ·
+  [Learning checklist](docs/08-learning-checklist.md) ·
+  [Implementation notes](docs/09-implementation-notes.md)
+- Planning: [SPEC.md](SPEC.md) (project brief) · [PLAN.md](PLAN.md) (milestones and progress) ·
+  [env/ENVIRONMENT.md](env/ENVIRONMENT.md)
 
 Part of a six-project engineering portfolio. The companion project `01-llm-inference-lab`
 provides the local model endpoint the LLM answer generator uses.

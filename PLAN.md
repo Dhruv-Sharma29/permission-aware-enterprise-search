@@ -60,7 +60,7 @@ Brief: [SPEC.md](SPEC.md). Core claim to prove: **no passage, answer, citation, 
 - Decision (2026-10-08): prompt v1 → v2 on dev only (v1 answered "4" for "4 days per week"); test run once with v2. Results: `results/summary/llm_answers_{dev_v1,dev_v2,test_v2}.json`.
 
 ### M5 — Freshness + revocation (1–2 weeks)
-- [ ] Version docs and ACLs. Write the guarantee in `docs/revocation.md`, e.g. "permission changes apply to the next request; caches keyed on ACL version are invalid immediately".
+- [ ] Version docs and ACLs. Write the guarantee in `docs/revocation.md` (written as [docs/03-freshness-and-revocation.md](docs/03-freshness-and-revocation.md)), e.g. "permission changes apply to the next request; caches keyed on ACL version are invalid immediately".
 - [ ] Stale index metadata → treat as deny until reconciled.
 - [ ] Doc delete/replace removes old chunks per the stated guarantee.
 - [ ] Measure permission-update delay.

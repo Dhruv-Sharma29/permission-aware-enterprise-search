@@ -196,9 +196,9 @@ issues, not leaks.
 | Claim (README) | Status |
 |---|---|
 | "OCR: key values recovered from scanned pages 19 / 20" | **[verify]** No script in the repo computes it and no results file records it. 20 = 10 scans × 2 planted facts is consistent with the generator. Confirm by OCR'ing `scans/*.png` and matching `scan_truth.json` facts |
-| "733 chunks" at "11 ms" | **[verify]** for the chunk count: `search.ingest` prints it, but it isn't saved. 11 ms agrees with vector p50 11.8 ms in `eval.json` |
+| "733 chunks" at "11 ms" | 733 confirmed by re-running `search.ingest` on 2026-10-23 (it prints the count; nothing saves it). 11 ms agrees with vector p50 11.8 ms in `eval.json` |
 | Ingestion "~45 s on CPU" | **[verify]** Not recorded in any file |
-| Search latency table: keyword 9 / 11, vector 11 / 14, hybrid 19 / 24 ms (p50 / p95) | **Disagrees with `eval.json`** (9.9 / 16.8, 11.8 / 18.3, 21.7 / 34.4). The p95s differ by 5–10 ms. The README figures are probably from an earlier run, overwritten when `eval.json` was regenerated, but nothing in the repo confirms that. These docs use `eval.json` |
+| Search latency table (p50 / p95) | Matches `eval.json` (9.9 / 16.8, 11.8 / 18.3, 21.7 / 34.4 ms) since 2026-10-23; the README used to show older figures (9 / 11, 11 / 14, 19 / 24 ms) |
 
 ## What not to claim
 

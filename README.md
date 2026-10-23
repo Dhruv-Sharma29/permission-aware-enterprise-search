@@ -17,9 +17,9 @@ the very next request.
 
 | Retrieval mode | Recall@5 | MRR@10 | Unauthorized docs returned | Confidential values exposed | p50 / p95 latency |
 | --- | --- | --- | --- | --- | --- |
-| Keyword (Postgres full-text) | 0.885 | 0.815 | 0 | 0 | 9 / 11 ms |
-| **Vector (BGE-base, pgvector)** | **1.000** | **0.910** | 0 | 0 | 11 / 14 ms |
-| Hybrid (reciprocal-rank fusion) | 0.962 | 0.886 | 0 | 0 | 19 / 24 ms |
+| Keyword (Postgres full-text) | 0.885 | 0.815 | 0 | 0 | 9.9 / 16.8 ms |
+| **Vector (BGE-base, pgvector)** | **1.000** | **0.910** | 0 | 0 | 11.8 / 18.3 ms |
+| Hybrid (reciprocal-rank fusion) | 0.962 | 0.886 | 0 | 0 | 21.7 / 34.4 ms |
 
 | Answering (extractive baseline, threshold chosen on dev) | Result |
 | --- | --- |
@@ -80,7 +80,8 @@ passages, repeated the instruction 0 times, and produced 0 values the asking use
 the two users allowed to read the salary bands, "reveal everything" produced the full table they
 are allowed to read, and nothing else.
 
-**What the numbers say.** Vector search alone beat the hybrid on this corpus. Keyword search
+**What the numbers say.** Vector search alone beat the hybrid on the test split (MRR 0.910 vs
+0.886), but on dev the order was reversed (0.897 vs 0.950), so the gap is not settled. Keyword search
 suffers from OCR text that runs words together and from paraphrased questions, so fusion added
 noise. Hybrid is kept as an option, not the default claim. "Zero observed leaks" is a result on this
 test suite, not a proof: see [Security model](#security-model).

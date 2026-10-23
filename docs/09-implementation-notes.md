@@ -110,7 +110,7 @@ torch/scipy failed with `numpy.core.multiarray failed to import`. `pyproject.tom
 | `search/ingest.py` docstring | Write path "used by the admin CLI and the tests" | There is no admin CLI. The write path is Python functions, called by tests and `eval/revocation.py` |
 | README architecture diagram | "Admin: grant, revoke, update, delete" | Same: functions, no endpoint or CLI |
 | README results table | Search p50/p95 9/11, 11/14, 19/24 ms | `eval.json`: 9.9/16.8, 11.8/18.3, 21.7/34.4 ms |
-| PLAN.md M1–M3, M5 checklists | Items unticked | § Progress marks all four milestones done, and the evidence is in [06](06-roadmap.md) |
+| PLAN.md M1–M3, M5 checklists | Were unticked; ticked 2026-10-23 to match § Progress | Only the reranker item stays open (never attempted); evidence in [06](06-roadmap.md) |
 | PLAN.md M5 | Guarantee "in `docs/revocation.md`" | Written as [03](03-freshness-and-revocation.md) |
 | README § macOS | macOS paths "tested on Linux" | `tests/test_security.py` skips unless the **Linux** `.tools/pg/...` binary exists, so on a Homebrew-only Mac the 8 integration tests would skip rather than run |
 

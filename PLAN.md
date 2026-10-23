@@ -34,23 +34,23 @@ Brief: [SPEC.md](SPEC.md). Core claim to prove: **no passage, answer, citation, 
 ## Milestones
 
 ### M1 — Corpus + identity (1–2 weeks, no LLM needed)
-- [ ] Generator for 200–500 fictional docs (HR, finance, engineering, legal…) incl. a few tables and scanned-image pages. Seeded.
-- [ ] ≥3 roles with **deliberate overlap** (e.g. engineer, manager, HR, finance; managers see some HR docs).
-- [ ] 100–200 questions; for each (question, role): relevant docs, allowed docs, expected answer or "unanswerable for this role".
-- [ ] Authorization function `can_read(principal, doc_id, at_version)` testable without any model.
+- [x] Generator for 200–500 fictional docs (HR, finance, engineering, legal…) incl. a few tables and scanned-image pages. Seeded.
+- [x] ≥3 roles with **deliberate overlap** (e.g. engineer, manager, HR, finance; managers see some HR docs).
+- [x] 100–200 questions; for each (question, role): relevant docs, allowed docs, expected answer or "unanswerable for this role".
+- [x] Authorization function `can_read(principal, doc_id, at_version)` testable without any model. (As built `can_read(user, doc_id)`; versions are enforced by the chunk version join: docs/03.)
 - **Exit:** permission expectations are explicit and machine-checkable.
 
 ### M2 — Keyword baseline with authz (1 week)
-- [ ] Choose store (decision gate: pgvector vs OpenSearch). Default pgvector for fewer moving parts.
-- [ ] Filter **inside the retrieval query** (ACL predicate), not after top-k (post-filtering leaks via counts and starves results).
-- [ ] Citation preview endpoint re-checks authorization on every request.
-- [ ] Identity from verified token only; ignore any role/user field in the request body.
+- [x] Choose store (decision gate: pgvector vs OpenSearch). Default pgvector for fewer moving parts.
+- [x] Filter **inside the retrieval query** (ACL predicate), not after top-k (post-filtering leaks via counts and starves results).
+- [x] Citation preview endpoint re-checks authorization on every request.
+- [x] Identity from verified token only; ignore any role/user field in the request body.
 - **Exit:** cross-role access tests pass (forged ID, direct citation link, same question different roles).
 
 ### M3 — Hybrid retrieval (1 week)
-- [ ] Embedding model with arm64 support; batch during ingestion.
-- [ ] Compare keyword vs vector vs hybrid on held-out questions: recall@k, MRR.
-- [ ] Reranker only if it improves held-out results — record the attempt either way.
+- [x] Embedding model with arm64 support; batch during ingestion.
+- [x] Compare keyword vs vector vs hybrid on held-out questions: recall@k, MRR.
+- [ ] Reranker only if it improves held-out results — record the attempt either way. (Not attempted, so nothing is recorded: docs/06.)
 
 ### M4 — Grounded answers (1 week)
 - [x] Prompt with authorized passages only; require citations per claim (`answer/llm.py`; schema-constrained reply, passage-number citations).
@@ -60,11 +60,11 @@ Brief: [SPEC.md](SPEC.md). Core claim to prove: **no passage, answer, citation, 
 - Decision (2026-10-08): prompt v1 → v2 on dev only (v1 answered "4" for "4 days per week"); test run once with v2. Results: `results/summary/llm_answers_{dev_v1,dev_v2,test_v2}.json`.
 
 ### M5 — Freshness + revocation (1–2 weeks)
-- [ ] Version docs and ACLs. Write the guarantee in `docs/revocation.md` (written as [docs/03-freshness-and-revocation.md](docs/03-freshness-and-revocation.md)), e.g. "permission changes apply to the next request; caches keyed on ACL version are invalid immediately".
-- [ ] Stale index metadata → treat as deny until reconciled.
-- [ ] Doc delete/replace removes old chunks per the stated guarantee.
-- [ ] Measure permission-update delay.
-- [ ] Revocation demo: answer cached → revoke → same user re-asks → no restricted content.
+- [x] Version docs and ACLs. Write the guarantee in `docs/revocation.md` (written as [docs/03-freshness-and-revocation.md](docs/03-freshness-and-revocation.md)), e.g. "permission changes apply to the next request; caches keyed on ACL version are invalid immediately".
+- [x] Stale index metadata → treat as deny until reconciled.
+- [x] Doc delete/replace removes old chunks per the stated guarantee.
+- [x] Measure permission-update delay.
+- [x] Revocation demo: answer cached → revoke → same user re-asks → no restricted content.
 
 ### M6 — Optional Azure AI Search variant
 Verify current API version and which access-control features are still preview. Keep local version runnable.

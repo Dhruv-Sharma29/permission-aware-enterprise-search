@@ -1,0 +1,65 @@
+{
+ "threshold": 0.7,
+ "rule": "switch from hybrid only to the best dev mode, if it beats hybrid's dev supported-answer rate by >= 0.02 with no higher unsupported share and no lower abstention",
+ "dev": {
+  "hybrid": {
+   "supported_answer_rate": 0.85,
+   "appropriate_abstention_rate": 1.0,
+   "unsupported_answer_share": 0.117,
+   "content_leaks": 0,
+   "citation_leaks": 0
+  },
+  "vector": {
+   "supported_answer_rate": 0.678,
+   "appropriate_abstention_rate": 1.0,
+   "unsupported_answer_share": 0.306,
+   "content_leaks": 0,
+   "citation_leaks": 0
+  },
+  "hybrid+rerank": {
+   "supported_answer_rate": 0.883,
+   "appropriate_abstention_rate": 1.0,
+   "unsupported_answer_share": 0.096,
+   "content_leaks": 0,
+   "citation_leaks": 0
+  },
+  "vector+rerank": {
+   "supported_answer_rate": 0.883,
+   "appropriate_abstention_rate": 1.0,
+   "unsupported_answer_share": 0.096,
+   "content_leaks": 0,
+   "citation_leaks": 0
+  }
+ },
+ "test": {
+  "hybrid": {
+   "supported_answer_rate": 0.872,
+   "appropriate_abstention_rate": 1.0,
+   "unsupported_answer_share": 0.056,
+   "content_leaks": 0,
+   "citation_leaks": 0
+  },
+  "vector": {
+   "supported_answer_rate": 0.782,
+   "appropriate_abstention_rate": 1.0,
+   "unsupported_answer_share": 0.187,
+   "content_leaks": 0,
+   "citation_leaks": 0
+  },
+  "hybrid+rerank": {
+   "supported_answer_rate": 0.923,
+   "appropriate_abstention_rate": 1.0,
+   "unsupported_answer_share": 0.04,
+   "content_leaks": 0,
+   "citation_leaks": 0
+  },
+  "vector+rerank": {
+   "supported_answer_rate": 0.923,
+   "appropriate_abstention_rate": 1.0,
+   "unsupported_answer_share": 0.04,
+   "content_leaks": 0,
+   "citation_leaks": 0
+  }
+ },
+ "decision": "hybrid+rerank"
+}

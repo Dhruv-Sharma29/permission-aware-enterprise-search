@@ -11,7 +11,7 @@
   "pairs": 15,
   "leaks": 0,
   "answerable_pairs": 7,
-  "supported_when_answerable": 4,
+  "supported_when_answerable": 5,
   "abstained_when_not_answerable": 8,
   "answered_when_not_answerable": 0,
   "threshold": "service default (results/summary/eval.json chosen_threshold)"
@@ -188,11 +188,11 @@
     "Invoice from Kestrel Cloud"
    ],
    "abstained": false,
-   "answer": "Paymentisdueon2026-02-22.",
+   "answer": "KestrelCloudinvoiced$43,416.",
    "cited": [
     "Invoice from Kestrel Cloud"
    ],
-   "supported": false,
+   "supported": true,
    "result_leaks": 0,
    "citation_leaks": 0,
    "content_leaks": 0

@@ -132,7 +132,8 @@ The last open definition-of-done item. `eval/role_demo.py` calls `/search` and `
 bearer tokens for 5 users. The oracle picks the questions (one per distinct access pattern, so 3
 qualified), not the system, and checks every result. Output: `results/summary/role_demo.{json,md}`.
 
-### 15. Purging stale cache rows
+### 15. Purging stale cache rows (done 2026-10-23)
 
-Invalidated `answer_cache` rows are never served but never deleted
-([03](03-freshness-and-revocation.md) § gaps).
+Invalidated `answer_cache` rows were never served but never deleted. `bump_epoch` now purges rows
+from earlier epochs in the same transaction ([03](03-freshness-and-revocation.md) § What the
+guarantee does not cover).

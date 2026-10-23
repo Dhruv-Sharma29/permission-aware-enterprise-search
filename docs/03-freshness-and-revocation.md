@@ -102,8 +102,13 @@ delete the document is absent from results and its preview is 404.
 |---|---|---|
 | Information already delivered | A response is a copy the server no longer controls | A revoked user keeps what they saw before the change. SPEC.md calls this out explicitly |
 | In-flight requests | A request whose SQL ran before the commit uses the old permissions | Bounded by one request's latency (tens of ms here) |
-| Stale cache rows are not deleted | Invalidation is by check-on-read, not by purge | `answer_cache` still holds answer text for a user who lost access. It is never served, but it is at rest in the database. Purging on epoch bump would close this |
 | `query_log` keeps doc ids | Audit needs them | A log reader can see which confidential document ids a user retrieved before revocation (no content) |
 | Concurrency | Tests and the demo are sequential | The reasoning above about mid-request commits comes from reading the code; no concurrent-writer test exists |
 | Source-of-truth correctness | Permissions are as right as `doc_acl` and `memberships` | A wrong group sync upstream is served faithfully |
 | Token lifetime | Tokens are valid until `exp` | Not a revocation gap for documents (groups are looked up live), but a user can't be locked out before expiry except by removing the `users` row, which has no write-path operation yet |
+
+**Closed 2026-10-23: stale cache rows.** `bump_epoch` now deletes cached answers from earlier epochs
+in the same transaction as the permission or content change. Before that they were never served
+(the cache is read only at the current epoch) but stayed at rest in `answer_cache` for users who
+may have lost access. `test_revocation_after_a_cached_answer` checks the purge, and fails on the
+old code.

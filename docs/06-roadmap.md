@@ -94,7 +94,7 @@ and preview status before starting. The local version MUST stay runnable.
    Next would be deciding on dev whether the answer path uses it.
 5. **Harder corpus**: more archived versions, role-conflicting questions in both splits, an
    instruction that redirects answers using data the user *can* read ([07](07-risks.md)).
-6. **Purge stale cache rows on epoch bump** ([03](03-freshness-and-revocation.md) § gaps).
+6. ~~**Purge stale cache rows on epoch bump.**~~ Done 2026-10-23 (`search/db.py: bump_epoch`).
 7. M6, optional.
 
 ## The cut line
